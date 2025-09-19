@@ -54,7 +54,7 @@ function Downloads() {
                 alt="xbe.sh logo" 
                 className="h-8 w-auto object-contain"
               />
-              <span className="text-xl font-bold text-white">xbe.sh</span>
+              <span className="text-xl font-bold text-white font-cal">xbe.sh</span>
             </a>
             
             {/* Back to Home */}
@@ -78,7 +78,7 @@ function Downloads() {
             transition={{ duration: 1 }}
             className="text-center mb-16"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-cal">
               Download
               <span className="text-gradient block">xbe.sh</span>
             </h1>
@@ -93,32 +93,34 @@ function Downloads() {
               {
                 os: 'Windows',
                 recommended: userOS === 'Windows',
-                version: 'v1.0.0',
-                size: '125 MB',
+                version: 'v2.0.0',
+                
                 formats: [
-                  { name: 'Installer (.exe)', size: '125 MB' },
-                  { name: 'Portable (.zip)', size: '98 MB' }
+                  { name: 'Windows User Installer x64 (.exe)', downloadUrl: '' },
+                  { name: 'Windows User Installer Arm64 (.exe)', downloadUrl: '' },
+                  { name: 'Windows System Installer x64 (.exe)', downloadUrl: '' },
+                  { name: 'Windows System Installer Arm64 (.exe)', downloadUrl: '' }
                 ]
               },
               {
                 os: 'macOS',
                 recommended: userOS === 'macOS',
-                version: 'v1.0.0',
-                size: '110 MB',
+                version: 'v2.0.0',
+               
                 formats: [
-                  { name: 'Universal (.dmg)', size: '110 MB' },
-                  { name: 'App Store', size: 'Free' }
+                  { name: 'macOS Universal (.dmg)',  downloadUrl: '' },
+                  { name: 'macOS x64 (.dmg)',  downloadUrl: '' },
+                  { name: 'macOS Arm64 (.dmg)',  downloadUrl: '' }
                 ]
               },
               {
                 os: 'Linux',
                 recommended: userOS === 'Linux',
-                version: 'v1.0.0',
-                size: '95 MB',
+                version: 'v2.0.0',
+             
                 formats: [
-                  { name: 'AppImage', size: '95 MB' },
-                  { name: 'Debian (.deb)', size: '89 MB' },
-                  { name: 'RPM (.rpm)', size: '91 MB' }
+                  { name: 'Linux (.deb)',  downloadUrl: '' },
+                  { name: 'Linux (.rpm)', downloadUrl: '' }
                 ]
               }
             ].map((platform, index) => (
@@ -149,26 +151,35 @@ function Downloads() {
                       </div>
                       
                       {/* OS Name */}
-                      <h3 className="text-2xl font-bold text-white mb-2">{platform.os}</h3>
-                      <p className="text-gray-400 text-sm mb-6">{platform.version} • {platform.size}</p>
+                      <h3 className="text-2xl font-bold text-white mb-2 font-cal">{platform.os}</h3>
+                          <p className="text-gray-400 text-sm mb-6">{platform.version}</p>
                       
                       {/* Download Options */}
                       <div className="space-y-3 mb-8">
                         {platform.formats.map((format, formatIndex) => (
                           <button
                             key={formatIndex}
-                            className="w-full bg-gradient-to-r from-violet-600/20 to-purple-600/20 hover:from-violet-600/30 hover:to-purple-600/30 border border-violet-500/30 text-white py-3 px-4 rounded-xl transition-all duration-200 hover:scale-105 text-sm"
+                            onClick={() => {
+                              if (format.downloadUrl) {
+                                window.open(format.downloadUrl, '_blank');
+                              }
+                            }}
+                            className="w-full bg-gradient-to-r from-violet-600/20 to-purple-600/20 hover:from-violet-600/30 hover:to-purple-600/30 border border-violet-500/30 text-white py-3 px-4 rounded-xl transition-all duration-200 hover:scale-105 text-sm text-center"
                           >
-                            <div className="flex justify-between items-center">
-                              <span>{format.name}</span>
-                              <span className="text-gray-400">{format.size}</span>
-                            </div>
+                            {format.name}
                           </button>
                         ))}
                       </div>
                       
                       {/* Main Download Button */}
-                      <button className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl">
+                      <button 
+                        onClick={() => {
+                          if (platform.formats[0]?.downloadUrl) {
+                            window.open(platform.formats[0].downloadUrl, '_blank');
+                          }
+                        }}
+                        className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
+                      >
                         Download for {platform.os}
                       </button>
                     </div>
@@ -178,58 +189,6 @@ function Downloads() {
             ))}
           </div>
 
-          {/* System Requirements */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            className="text-center"
-          >
-            <h2 className="text-3xl font-bold text-white mb-8">System Requirements</h2>
-            <div className="grid md:grid-cols-3 gap-8 text-left">
-              {[
-                {
-                  os: 'Windows',
-                  requirements: [
-                    'Windows 10 or later',
-                    '4 GB RAM minimum',
-                    '2 GB free disk space',
-                    'Internet connection'
-                  ]
-                },
-                {
-                  os: 'macOS',
-                  requirements: [
-                    'macOS 10.15 or later',
-                    '4 GB RAM minimum',
-                    '2 GB free disk space',
-                    'Internet connection'
-                  ]
-                },
-                {
-                  os: 'Linux',
-                  requirements: [
-                    'Ubuntu 18.04+ or equivalent',
-                    '4 GB RAM minimum',
-                    '2 GB free disk space',
-                    'Internet connection'
-                  ]
-                }
-              ].map((req, index) => (
-                <div key={index} className="bg-slate-800/30 rounded-2xl p-6 border border-white/5">
-                  <h3 className="text-xl font-semibold text-white mb-4">{req.os}</h3>
-                  <ul className="space-y-2">
-                    {req.requirements.map((requirement, reqIndex) => (
-                      <li key={reqIndex} className="flex items-center text-gray-300">
-                        <div className="w-1.5 h-1.5 bg-violet-400 rounded-full mr-3"></div>
-                        {requirement}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </motion.div>
         </div>
       </main>
     </div>

@@ -8,6 +8,10 @@ import { useLenis } from './hooks/useLenis'
 function App() {
   const [userOS, setUserOS] = useState('Windows')
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
+  const [showOthersDropdown, setShowOthersDropdown] = useState(false)
+  const [email, setEmail] = useState('')
+  const [emailSubmitted, setEmailSubmitted] = useState(false)
+  const [emailError, setEmailError] = useState('')
 
   // Initialize Lenis smooth scroll
   useLenis()
@@ -29,6 +33,54 @@ function App() {
 
     setUserOS(detectOS())
   }, [])
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setShowOthersDropdown(false)
+    }
+
+    if (showOthersDropdown) {
+      document.addEventListener('click', handleClickOutside)
+      return () => document.removeEventListener('click', handleClickOutside)
+    }
+  }, [showOthersDropdown])
+
+  // Handle email submission
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setEmailError('')
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!email || !emailRegex.test(email)) {
+      setEmailError('Please enter a valid email address')
+      return
+    }
+
+    try {
+      // Using Formspree for email collection
+      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          message: 'Webinar signup request'
+        }),
+      })
+
+      if (response.ok) {
+        setEmailSubmitted(true)
+        setEmail('')
+      } else {
+        setEmailError('Something went wrong. Please try again.')
+      }
+    } catch (error) {
+      setEmailError('Network error. Please check your connection.')
+    }
+  }
 
   const getOSIcon = () => {
     switch (userOS) {
@@ -75,27 +127,35 @@ function App() {
                 alt="xbe.sh logo" 
                 className="h-8 w-auto object-contain"
               />
-              <span className="text-xl font-bold text-white">xbe.sh</span>
+              <span className="text-xl font-bold text-white font-cal">xbe.sh</span>
             </button>
             
             {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-gray-400 hover:text-white transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-white/5">
+              <a href="#features" className="text-gray-400 hover:text-white transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-white/5 font-cal">
                 Features
               </a>
-              <a href="#testimonials" className="text-gray-400 hover:text-white transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-white/5">
+              <a href="#testimonials" className="text-gray-400 hover:text-white transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-white/5 font-cal">
                 Testimonials
               </a>
-              <a href="#pricing" className="text-gray-400 hover:text-white transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-white/5">
+              <a href="#pricing" className="text-gray-400 hover:text-white transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-white/5 font-cal">
                 Pricing
               </a>
-              <a href="#faq" className="text-gray-400 hover:text-white transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-white/5">
+              <a href="#faq" className="text-gray-400 hover:text-white transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-white/5 font-cal">
                 FAQs
               </a>
             </nav>
             
             {/* CTA Button */}
-            <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold px-6 py-2.5 rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl">
+            <button 
+              onClick={() => {
+                const gettingStartedSection = document.getElementById('getting-started');
+                if (gettingStartedSection) {
+                  gettingStartedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold px-6 py-2.5 rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
+            >
               Get Started
             </button>
       </div>
@@ -138,7 +198,7 @@ function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
                       viewport={{ once: true }}
-                      className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight"
+                      className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight font-cal"
                     >
                       xbe.sh is the revolutionary
                       <span className="text-gradient block">AGENTIC IDE</span>
@@ -240,7 +300,7 @@ function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
                       viewport={{ once: true }}
-                      className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight"
+                      className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight font-cal"
                     >
                       The Future of
                       <span className="text-gradient block">Development</span>
@@ -279,7 +339,7 @@ function App() {
                           <div className="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-purple-300 text-sm font-medium tracking-wider">01 • AGENTIC CORE</span>
                         </div>
-                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
+                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight font-cal">
                           Intelligent
                           <span className="text-gradient block">Automation</span>
                         </h3>
@@ -491,7 +551,7 @@ function App() {
                           <div className="w-2 h-2 bg-pink-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-pink-300 text-sm font-medium tracking-wider">02 • LIVE PREVIEW</span>
                         </div>
-                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
+                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight font-cal">
                           Real-Time
                           <span className="text-gradient block">Development</span>
                         </h3>
@@ -540,7 +600,7 @@ function App() {
                           <div className="w-2 h-2 bg-orange-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-orange-300 text-sm font-medium tracking-wider">03 • DEVOPS AUTOMATION</span>
                         </div>
-                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
+                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight font-cal">
                           Pipeline
                           <span className="text-gradient block">Orchestration</span>
                         </h3>
@@ -768,7 +828,7 @@ function App() {
                           <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-green-300 text-sm font-medium tracking-wider">04 • AUTONOMOUS DEBUG</span>
                         </div>
-                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
+                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight font-cal">
                           Self-Healing
                           <span className="text-gradient block">Code</span>
                         </h3>
@@ -817,7 +877,7 @@ function App() {
                           <div className="w-2 h-2 bg-blue-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-blue-300 text-sm font-medium tracking-wider">05 • ARCHITECTURE</span>
                         </div>
-                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
+                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight font-cal">
                           Instant
                           <span className="text-gradient block">Scaffolding</span>
                         </h3>
@@ -898,7 +958,7 @@ function App() {
                           <div className="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-purple-300 text-sm font-medium tracking-wider">06 • VISUAL-TO-CODE</span>
                         </div>
-                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
+                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight font-cal">
                           Design
                           <span className="text-gradient block">Translation</span>
                         </h3>
@@ -938,7 +998,7 @@ function App() {
                       <div className="w-2 h-2 bg-violet-400 rounded-full mr-3 animate-pulse"></div>
                       <span className="text-violet-300 text-sm font-medium tracking-wider">TRUSTED BY DEVELOPERS</span>
       </div>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-cal">
                       Join the
                       <span className="text-gradient block">Revolution</span>
                     </h2>
@@ -973,37 +1033,37 @@ function App() {
                           quote: "Finally, an AI tool that actually understands context! The accuracy in natural language processing is impressive.",
                           author: "Sofia Rodriguez",
                           role: "@sofiaml",
-                          avatar: "👩‍💻"
+                          avatar: "/Girl1.jpg"
                         },
                         {
                           quote: "Using this AI platform has transformed how we handle data analysis. The speed and accuracy are unprecedented.",
                           author: "Emma Thompson",
                           role: "@emmaai",
-                          avatar: "👩‍🔬"
+                          avatar: "/Girl2.jpg"
                         },
                         {
                           quote: "The API integration is flawless. We've reduced our development time by 60% since implementing this solution.",
                           author: "David Park",
                           role: "@davidtech",
-                          avatar: "👨‍💼"
+                          avatar: "/Boy1.jpg"
                         },
                         {
                           quote: "xbe.sh has completely transformed how we build products. What used to take weeks now takes days.",
                           author: "Sarah Chen",
                           role: "@sarahdev",
-                          avatar: "👩‍💻"
+                          avatar: "/Girl3.jpg"
                         },
                         {
                           quote: "The AI agent understands context better than any tool I've used. It's like having a senior developer pair programming.",
                           author: "Marcus Johnson",
                           role: "@marcustech",
-                          avatar: "👨‍💼"
+                          avatar: "/Boy2.jpg"
                         },
                         {
                           quote: "From idea to deployment in minutes, not hours. This is genuinely the future of development.",
                           author: "Elena Rodriguez",
                           role: "@elenacode",
-                          avatar: "👩‍🔬"
+                          avatar: "/Girl4.jpg"
                         }
                       ].map((testimonial, index) => (
                         <div
@@ -1028,8 +1088,12 @@ function App() {
                                 
                                 {/* Author */}
                                 <div className="flex items-center mt-4">
-                                  <div className="w-8 h-8 bg-gradient-to-br from-violet-400/40 to-purple-400/40 rounded-full flex items-center justify-center text-sm backdrop-blur-sm border border-white/20 mr-3">
-                                    {testimonial.avatar}
+                                  <div className="w-8 h-8 rounded-full overflow-hidden border border-white/20 mr-3 bg-gradient-to-br from-violet-400/20 to-purple-400/20">
+                                    <img 
+                                      src={testimonial.avatar} 
+                                      alt={testimonial.author}
+                                      className="w-full h-full object-cover"
+                                    />
                                   </div>
                                   <div>
                                     <div className="text-white font-semibold text-xs">{testimonial.author}</div>
@@ -1048,37 +1112,37 @@ function App() {
                           quote: "Finally, an AI tool that actually understands context! The accuracy in natural language processing is impressive.",
                           author: "Sofia Rodriguez",
                           role: "@sofiaml",
-                          avatar: "👩‍💻"
+                          avatar: "/Girl1.jpg"
                         },
                         {
                           quote: "Using this AI platform has transformed how we handle data analysis. The speed and accuracy are unprecedented.",
                           author: "Emma Thompson",
                           role: "@emmaai",
-                          avatar: "👩‍🔬"
+                          avatar: "/Girl2.jpg"
                         },
                         {
                           quote: "The API integration is flawless. We've reduced our development time by 60% since implementing this solution.",
                           author: "David Park",
                           role: "@davidtech",
-                          avatar: "👨‍💼"
+                          avatar: "/Boy1.jpg"
                         },
                         {
                           quote: "xbe.sh has completely transformed how we build products. What used to take weeks now takes days.",
                           author: "Sarah Chen",
                           role: "@sarahdev",
-                          avatar: "👩‍💻"
+                          avatar: "/Girl3.jpg"
                         },
                         {
                           quote: "The AI agent understands context better than any tool I've used. It's like having a senior developer pair programming.",
                           author: "Marcus Johnson",
                           role: "@marcustech",
-                          avatar: "👨‍💼"
+                          avatar: "/Boy2.jpg"
                         },
                         {
                           quote: "From idea to deployment in minutes, not hours. This is genuinely the future of development.",
                           author: "Elena Rodriguez",
                           role: "@elenacode",
-                          avatar: "👩‍🔬"
+                          avatar: "/Girl4.jpg"
                         }
                       ].map((testimonial, index) => (
                         <div
@@ -1103,8 +1167,12 @@ function App() {
                                 
                                 {/* Author */}
                                 <div className="flex items-center mt-4">
-                                  <div className="w-8 h-8 bg-gradient-to-br from-violet-400/40 to-purple-400/40 rounded-full flex items-center justify-center text-sm backdrop-blur-sm border border-white/20 mr-3">
-                                    {testimonial.avatar}
+                                  <div className="w-8 h-8 rounded-full overflow-hidden border border-white/20 mr-3 bg-gradient-to-br from-violet-400/20 to-purple-400/20">
+                                    <img 
+                                      src={testimonial.avatar} 
+                                      alt={testimonial.author}
+                                      className="w-full h-full object-cover"
+                                    />
                                   </div>
                                   <div>
                                     <div className="text-white font-semibold text-xs">{testimonial.author}</div>
@@ -1132,8 +1200,7 @@ function App() {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                   >
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-                      Simple, Transparent
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-cal">
                       <span className="text-gradient block">Pricing</span>
                     </h2>
                     <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
@@ -1160,10 +1227,10 @@ function App() {
                             {/* Plan Header */}
                             <div className="text-center mb-8">
                               <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-400/30 rounded-full backdrop-blur-sm mb-4">
-                                <span className="text-green-300 text-sm font-medium tracking-wider">FREE</span>
+                                <span className="text-green-300 text-sm font-medium tracking-wider">Hobby</span>
                               </div>
-                              <div className="text-5xl font-bold text-white mb-2">$0</div>
-                              <div className="text-gray-400">Forever free</div>
+                              <div className="text-5xl font-bold text-white mb-2">FREE</div>
+                              <div className="text-gray-400">Forever</div>
                             </div>
 
                             {/* Features */}
@@ -1186,10 +1253,53 @@ function App() {
                               ))}
                             </div>
 
-                            {/* CTA Button */}
-                            <button className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl">
-                              Get Started Free
-        </button>
+                            {/* CTA Buttons */}
+                            <div className="relative">
+                              <div className="flex gap-3">
+                                <button className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
+                                  {getOSIcon()}
+                                  Download
+                                </button>
+                                <button 
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    setShowOthersDropdown(!showOthersDropdown)
+                                  }}
+                                  className="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
+                                >
+                                  Others
+                                </button>
+                              </div>
+                              
+                              {/* Others Dropdown */}
+                              {showOthersDropdown && (
+                                <div 
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="absolute top-full right-0 mt-2 bg-gray-800 border border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden"
+                                >
+                                  {['Windows', 'macOS', 'Linux'].filter(os => os !== userOS).map((os) => (
+                                    <button key={os} className="w-full px-6 py-3 text-left text-white hover:bg-gray-700 transition-colors flex items-center gap-3">
+                                      {os === 'macOS' && (
+                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                                        </svg>
+                                      )}
+                                      {os === 'Linux' && (
+                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                          <path d="M12.5 2c-1.74 0-3.5.85-3.5 2.5 0 .43.1.85.29 1.21C6.27 7.6 4 10.5 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8c0-3.5-2.27-6.4-5.29-8.29.19-.36.29-.78.29-1.21C15 2.85 13.24 2 12.5 2zm0 1c.28 0 .5.22.5.5s-.22.5-.5.5-.5-.22-.5-.5.22-.5.5-.5zM12 6c3.31 0 6 2.69 6 6 0 3.31-2.69 6-6 6s-6-2.69-6-6c0-3.31 2.69-6 6-6z"/>
+                                        </svg>
+                                      )}
+                                      {os === 'Windows' && (
+                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                          <path d="M3,12V6.75L9,5.43V11.91L3,12M20,3V11.75L10,11.9V5.21L20,3M3,13L9,13.09V19.9L3,18.75V13M20,13.25V22L10,20.09V13.1L20,13.25Z"/>
+                                        </svg>
+                                      )}
+                                      {os === 'macOS' ? 'Mac' : os}
+                                    </button>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -1262,7 +1372,7 @@ function App() {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                   >
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-cal">
                       Frequently Asked
                       <span className="text-gradient block">Questions</span>
                     </h2>
@@ -1355,7 +1465,7 @@ function App() {
 
 
               {/* Getting Started Section */}
-              <section className="relative py-32 bg-gradient-to-b from-slate-950 to-slate-900">
+              <section id="getting-started" className="relative py-32 bg-gradient-to-b from-slate-950 to-slate-900">
                 <div className="max-w-6xl mx-auto px-6">
                   {/* Section Header */}
                   <motion.div
@@ -1365,7 +1475,7 @@ function App() {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                   >
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-cal">
                       Get Started in
                       <span className="text-gradient block">3 Simple Steps</span>
                     </h2>
@@ -1381,21 +1491,33 @@ function App() {
                         step: "01",
                         title: "Download & Install",
                         description: "Get xbe.sh for your operating system. Available for Windows, macOS, and Linux with one-click installation.",
-                        icon: "⬇️",
+                        icon: (
+                          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2M12 21L10.91 15.74L2 15L10.91 14.26L12 8L13.09 14.26L22 15L13.09 15.74L12 21Z"/>
+                          </svg>
+                        ),
                         features: ["Cross-platform support", "Automatic updates", "Quick setup wizard"]
                       },
                       {
                         step: "02", 
                         title: "Configure Your AI",
                         description: "Choose your preferred AI model - use our cloud models or connect your own through Ollama/LM Studio.",
-                        icon: "🤖",
+                        icon: (
+                          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14H22A1,1 0 0,1 23,15V18A1,1 0 0,1 22,19H21V20A2,2 0 0,1 19,22H5A2,2 0 0,1 3,20V19H2A1,1 0 0,1 1,18V15A1,1 0 0,1 2,14H3A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M7.5,13A2.5,2.5 0 0,0 5,15.5A2.5,2.5 0 0,0 7.5,18A2.5,2.5 0 0,0 10,15.5A2.5,2.5 0 0,0 7.5,13M16.5,13A2.5,2.5 0 0,0 14,15.5A2.5,2.5 0 0,0 16.5,18A2.5,2.5 0 0,0 19,15.5A2.5,2.5 0 0,0 16.5,13Z"/>
+                          </svg>
+                        ),
                         features: ["Multiple AI providers", "Custom model support", "Privacy controls"]
                       },
                       {
                         step: "03",
                         title: "Start Building",
                         description: "Create your first project, describe what you want to build, and watch the AI agent bring it to life.",
-                        icon: "🚀",
+                        icon: (
+                          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M2.81,14.12L5.64,11.29L8.47,14.12L7.06,15.53L3.5,12L7.06,8.47L8.47,9.88L5.64,12.71L2.81,14.12M21.19,9.88L18.36,12.71L15.53,9.88L16.94,8.47L20.5,12L16.94,15.53L15.53,14.12L18.36,11.29L21.19,9.88M9.12,17.5L14.88,6.5H13.12L7.36,17.5H9.12Z"/>
+                          </svg>
+                        ),
                         features: ["Project templates", "AI-guided setup", "Instant deployment"]
                       }
                     ].map((step, index) => (
@@ -1416,11 +1538,11 @@ function App() {
                               {/* Step Number */}
                               <div className="flex items-center justify-between mb-6">
                                 <div className="text-6xl opacity-20 font-bold text-white">{step.step}</div>
-                                <div className="text-4xl">{step.icon}</div>
+                                <div className="text-violet-400">{step.icon}</div>
                               </div>
 
                               {/* Title */}
-                              <h3 className="text-2xl font-bold text-white mb-4">{step.title}</h3>
+                              <h3 className="text-2xl font-bold text-white mb-4 font-cal">{step.title}</h3>
                               
                               {/* Description */}
                               <p className="text-gray-300 mb-6 leading-relaxed">{step.description}</p>
@@ -1451,7 +1573,7 @@ function App() {
                   >
                     <div className="inline-flex items-center space-x-4">
                     <a href="/downloads">
-                      <button className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl">
+                      <button className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl font-cal">
                         Download xbe.sh
                       </button>
                     </a>
@@ -1475,7 +1597,7 @@ function App() {
                     transition={{ duration: 1 }}
                     viewport={{ once: true }}
                   >
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight font-cal">
                       Ready to Transform Your
                       <span className="text-gradient block">Development Workflow?</span>
                     </h2>
@@ -1491,147 +1613,100 @@ function App() {
                       viewport={{ once: true }}
                       className="max-w-md mx-auto mb-8"
                     >
-                      <div className="relative group">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-violet-500/30 to-purple-500/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-700"></div>
-                        <div className="relative bg-gradient-to-br from-slate-800/40 to-slate-900/60 backdrop-blur-2xl border border-white/20 rounded-2xl p-2 flex">
-                          <input
-                            type="email"
-                            placeholder="Enter your email address"
-                            className="flex-1 bg-transparent text-white placeholder-gray-400 px-4 py-3 focus:outline-none"
-                          />
-                          <button className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap">
-                            Join Webinar
+                      {emailSubmitted ? (
+                        <div className="text-center">
+                          <div className="bg-green-500/20 border border-green-400/30 rounded-2xl p-6 mb-4">
+                            <div className="flex items-center justify-center mb-2">
+                              <svg className="w-8 h-8 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                              </svg>
+                            </div>
+                            <h3 className="text-white font-semibold mb-2">Thank you!</h3>
+                            <p className="text-green-300 text-sm">
+                              We've received your email. You'll hear from us soon about the webinar!
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => setEmailSubmitted(false)}
+                            className="text-gray-400 hover:text-white text-sm underline"
+                          >
+                            Submit another email
                           </button>
                         </div>
-                      </div>
-                    </motion.div>
-
-                    {/* Trust Indicators */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8, delay: 0.5 }}
-                      viewport={{ once: true }}
-                      className="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-500"
-                    >
-                      <div className="flex items-center">
-                        <svg className="w-4 h-4 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                        Free to start
-                      </div>
-                      <div className="flex items-center">
-                        <svg className="w-4 h-4 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                        No credit card required
-                      </div>
-                      <div className="flex items-center">
-                        <svg className="w-4 h-4 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                        Cancel anytime
-                      </div>
+                      ) : (
+                        <form onSubmit={handleEmailSubmit}>
+                          <div className="relative group">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-violet-500/30 to-purple-500/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-700"></div>
+                            <div className="relative bg-gradient-to-br from-slate-800/40 to-slate-900/60 backdrop-blur-2xl border border-white/20 rounded-2xl p-2 flex flex-col sm:flex-row gap-2 sm:gap-0">
+                              <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Enter your email address"
+                                className="flex-1 bg-transparent text-white placeholder-gray-400 px-4 py-3 focus:outline-none rounded-xl sm:rounded-none text-center sm:text-left"
+                                required
+                              />
+                              <button 
+                                type="submit"
+                                className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap"
+                              >
+                                Join Webinar
+                              </button>
+                            </div>
+                          </div>
+                          {emailError && (
+                            <p className="text-red-400 text-sm mt-2 text-center">{emailError}</p>
+                          )}
+                        </form>
+                      )}
                     </motion.div>
                   </motion.div>
                 </div>
               </section>
 
               {/* Footer */}
-              <footer className="relative bg-gradient-to-b from-slate-950 to-black border-t border-white/5">
+              <footer className="relative bg-gradient-to-b from-slate-900/50 to-slate-950 border-t border-white/5">
                 <div className="max-w-7xl mx-auto px-6 py-16">
                   {/* Main Footer Content */}
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                  <div className="mb-8">
                     {/* Brand Column */}
-                    <div className="lg:col-span-1">
-                      <div className="flex items-center space-x-3 mb-6">
+                    <div className="mb-8">
+                      <div className="flex items-center space-x-3 mb-4">
                         <img 
                           src="/logo-dark-styled.png" 
                           alt="xbe.sh logo" 
                           className="h-8 w-auto object-contain"
                         />
-                        <span className="text-2xl font-bold text-white">xbe.sh</span>
+                        <span className="text-xl font-bold text-white font-cal">xbe.sh</span>
                       </div>
-                      <p className="text-gray-400 mb-6 leading-relaxed">
-                        The revolutionary agentic IDE that transforms how developers build, ship, and scale applications with AI-powered automation.
+                      <p className="text-gray-400 mb-4 max-w-md leading-relaxed">
+                        Transform your ideas into production-ready<br />
+                        applications with AI-powered code generation.
                       </p>
-                      <div className="flex space-x-4">
-                        {[
-                          { icon: "🐙", href: "#", label: "GitHub" },
-                          { icon: "💬", href: "#", label: "Discord" },
-                          { icon: "🐦", href: "#", label: "Twitter" },
-                          { icon: "📺", href: "#", label: "YouTube" }
-                        ].map((social, index) => (
-                          <a
-                            key={index}
-                            href={social.href}
-                            className="w-10 h-10 bg-gradient-to-br from-slate-800/40 to-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-lg flex items-center justify-center hover:border-white/20 transition-all duration-200 group"
-                            aria-label={social.label}
-                          >
-                            <span className="text-lg group-hover:scale-110 transition-transform">{social.icon}</span>
-                          </a>
-                        ))}
+                      <div className="text-gray-400 text-sm mb-2">
+                        8 The Green, Dover, Delaware 19901, US
+                      </div>
+                      <div className="text-gray-400 text-sm">
+                        hello@xbesh.com
                       </div>
                     </div>
+                  </div>
 
-                    {/* Product Column */}
-                    <div>
-                      <h3 className="text-white font-semibold mb-6">Product</h3>
-                      <ul className="space-y-4">
-                        {[
-                          { name: "Features", href: "#features" },
-                          { name: "Pricing", href: "#pricing" },
-                          { name: "Download", href: "#" },
-                          { name: "Changelog", href: "#" },
-                          { name: "Roadmap", href: "#" }
-                        ].map((link, index) => (
-                          <li key={index}>
-                            <a href={link.href} className="text-gray-400 hover:text-white transition-colors duration-200">
-                              {link.name}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Resources Column */}
-                    <div>
-                      <h3 className="text-white font-semibold mb-6">Resources</h3>
-                      <ul className="space-y-4">
-                        {[
-                          { name: "Documentation", href: "#" },
-                          { name: "API Reference", href: "#" },
-                          { name: "Tutorials", href: "#" },
-                          { name: "Examples", href: "#" },
-                          { name: "Community", href: "#" }
-                        ].map((link, index) => (
-                          <li key={index}>
-                            <a href={link.href} className="text-gray-400 hover:text-white transition-colors duration-200">
-                              {link.name}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Company Column */}
-                    <div>
-                      <h3 className="text-white font-semibold mb-6">Company</h3>
-                      <ul className="space-y-4">
-                        {[
-                          { name: "About", href: "#" },
-                          { name: "Blog", href: "#" },
-                          { name: "Careers", href: "#" },
-                          { name: "Contact", href: "#" },
-                          { name: "Support", href: "#" }
-                        ].map((link, index) => (
-                          <li key={index}>
-                            <a href={link.href} className="text-gray-400 hover:text-white transition-colors duration-200">
-                              {link.name}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
+                  {/* Policy Links */}
+                  <div className="mb-8 flex justify-end">
+                    <div className="flex space-x-6 text-sm">
+                      <a href="/privacy" className="text-gray-400 hover:text-white transition-colors duration-200">
+                        Privacy
+                      </a>
+                      <a href="/terms" className="text-gray-400 hover:text-white transition-colors duration-200">
+                        Terms
+                      </a>
+                      <a href="/cookies" className="text-gray-400 hover:text-white transition-colors duration-200">
+                        Cookies
+                      </a>
+                      <a href="/security" className="text-gray-400 hover:text-white transition-colors duration-200">
+                        Security
+                      </a>
                     </div>
                   </div>
 
@@ -1639,25 +1714,63 @@ function App() {
                   <div className="pt-8 border-t border-white/5">
                     <div className="flex flex-col md:flex-row justify-between items-center">
                       <div className="text-gray-500 text-sm mb-4 md:mb-0">
-                        © 2024 xbe.sh. All rights reserved.
+                        © 2024 xbe.sh Labs LLC. All rights reserved.
                       </div>
-                      <div className="flex space-x-6 text-sm">
-                        <a href="#" className="text-gray-500 hover:text-white transition-colors duration-200">
-                          Privacy Policy
+                      <div className="flex space-x-6">
+                        <a
+                          href="#"
+                          className="text-gray-400 hover:text-white transition-colors duration-200"
+                          aria-label="Twitter"
+                        >
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                          </svg>
                         </a>
-                        <a href="#" className="text-gray-500 hover:text-white transition-colors duration-200">
-                          Terms of Service
+                        <a
+                          href="#"
+                          className="text-gray-400 hover:text-white transition-colors duration-200"
+                          aria-label="GitHub"
+                        >
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                          </svg>
                         </a>
-                        <a href="#" className="text-gray-500 hover:text-white transition-colors duration-200">
-                          Cookie Policy
+                        <a
+                          href="#"
+                          className="text-gray-400 hover:text-white transition-colors duration-200"
+                          aria-label="Discord"
+                        >
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0002 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9554 2.4189-2.1568 2.4189Z"/>
+                          </svg>
+                        </a>
+                        <a
+                          href="#"
+                          className="text-gray-400 hover:text-white transition-colors duration-200"
+                          aria-label="LinkedIn"
+                        >
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                          </svg>
                         </a>
                       </div>
                     </div>
                   </div>
                 </div>
-              </footer>
+          </footer>
+
+          {/* Built with xBe.sh Badge */}
+          <div className="fixed bottom-4 right-4 z-50">
+            <div className="bg-black/80 backdrop-blur-sm border border-white/10 rounded-full px-3 py-1.5 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+              <div className="flex items-center gap-1.5 text-xs">
+                <span className="text-gray-300">Built with</span>
+                <span className="text-white font-semibold font-cal">xbe.sh</span>
+                <span className="text-red-400">❤️</span>
+              </div>
             </div>
-  )
-}
+          </div>
+        </div>
+      )
+    }
 
 export default App
