@@ -7,13 +7,6 @@ export function useLenis() {
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
     });
 
     // Animation frame loop
@@ -31,7 +24,7 @@ export function useLenis() {
       
       if (href && href.startsWith('#')) {
         e.preventDefault();
-        const element = document.querySelector(href);
+        const element = document.querySelector(href) as HTMLElement;
         if (element) {
           lenis.scrollTo(element, {
             duration: 1.5,
