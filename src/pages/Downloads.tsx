@@ -71,7 +71,6 @@ function Downloads() {
       {/* Main Content */}
       <main className="pt-24 pb-16">
         <div className="max-w-6xl mx-auto px-6">
-          {/* Header Section */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -89,41 +88,54 @@ function Downloads() {
 
           {/* Download Cards */}
           <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {[
-              {
-                os: 'Windows',
-                recommended: userOS === 'Windows',
-                version: 'v2.0.0',
+            {(() => {
+              const allPlatforms = [
+                {
+                  os: 'Windows',
+                  recommended: userOS === 'Windows',
+                  version: 'v2.0.0',
+                  
+                  formats: [
+                    { name: 'Windows x64 (.exe)', downloadUrl: '/countdown' },
+                    { name: 'Windows Arm64 (.exe)', downloadUrl: '/countdown' }
+                  ]
+                },
+                {
+                  os: 'macOS',
+                  recommended: userOS === 'macOS',
+                  version: 'v2.0.0',
+                  
+                  formats: [
+                    { name: 'macOS Universal (.dmg)',  downloadUrl: '/countdown' },
+                    { name: 'macOS Apple Silicon (.dmg)',  downloadUrl: '/countdown' }
+                  ]
+                },
+                {
+                  os: 'Linux',
+                  recommended: userOS === 'Linux',
+                  version: 'v2.0.0',
                 
-                formats: [
-                  { name: 'Windows User Installer x64 (.exe)', downloadUrl: '' },
-                  { name: 'Windows User Installer Arm64 (.exe)', downloadUrl: '' },
-                  { name: 'Windows System Installer x64 (.exe)', downloadUrl: '' },
-                  { name: 'Windows System Installer Arm64 (.exe)', downloadUrl: '' }
-                ]
-              },
-              {
-                os: 'macOS',
-                recommended: userOS === 'macOS',
-                version: 'v2.0.0',
-               
-                formats: [
-                  { name: 'macOS Universal (.dmg)',  downloadUrl: '' },
-                  { name: 'macOS x64 (.dmg)',  downloadUrl: '' },
-                  { name: 'macOS Arm64 (.dmg)',  downloadUrl: '' }
-                ]
-              },
-              {
-                os: 'Linux',
-                recommended: userOS === 'Linux',
-                version: 'v2.0.0',
-             
-                formats: [
-                  { name: 'Linux (.deb)',  downloadUrl: '' },
-                  { name: 'Linux (.rpm)', downloadUrl: '' }
-                ]
-              }
-            ].map((platform, index) => (
+                  formats: [
+                    { name: 'Linux (.deb)',  downloadUrl: '/countdown' },
+                    { name: 'Linux (.rpm)', downloadUrl: '/countdown' }
+                  ]
+                }
+              ];
+
+              // Find the recommended platform and reorder to put it in the middle
+              const recommendedIndex = allPlatforms.findIndex(p => p.recommended);
+              const recommendedPlatform = allPlatforms[recommendedIndex];
+              const otherPlatforms = allPlatforms.filter((_, index) => index !== recommendedIndex);
+              
+              // Arrange: [first other platform, recommended platform, second other platform]
+              const orderedPlatforms = [
+                otherPlatforms[0],
+                recommendedPlatform,
+                otherPlatforms[1]
+              ].filter(Boolean); // Remove any undefined values
+
+              return orderedPlatforms;
+            })().map((platform, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 40, scale: 0.95 }}
@@ -161,7 +173,7 @@ function Downloads() {
                             key={formatIndex}
                             onClick={() => {
                               if (format.downloadUrl) {
-                                window.open(format.downloadUrl, '_blank');
+                                window.location.href = format.downloadUrl;
                               }
                             }}
                             className="w-full bg-gradient-to-r from-violet-600/20 to-purple-600/20 hover:from-violet-600/30 hover:to-purple-600/30 border border-violet-500/30 text-white py-3 px-4 rounded-xl transition-all duration-200 hover:scale-105 text-sm text-center"
@@ -175,7 +187,7 @@ function Downloads() {
                       <button 
                         onClick={() => {
                           if (platform.formats[0]?.downloadUrl) {
-                            window.open(platform.formats[0].downloadUrl, '_blank');
+                            window.location.href = platform.formats[0].downloadUrl;
                           }
                         }}
                         className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
@@ -188,6 +200,7 @@ function Downloads() {
               </motion.div>
             ))}
           </div>
+
 
         </div>
       </main>

@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
 import Downloads from './pages/Downloads';
+import CountdownPage from './pages/CountdownPage';
+import Legal from './pages/Legal';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Cookies from './pages/Cookies';
@@ -12,6 +14,8 @@ function Router() {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/downloads" element={<Downloads />} />
+        <Route path="/countdown" element={<CountdownPage />} />
+        <Route path="/legal" element={<Legal />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/cookies" element={<Cookies />} />
