@@ -340,7 +340,7 @@ function App() {
                           <div className="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-purple-300 text-sm font-medium tracking-wider">01 • AGENTIC CORE</span>
                         </div>
-                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left">
+                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left px-4 lg:px-0">
                           Intelligent
                           <span className="text-gradient block">Automation</span>
                         </h3>
@@ -552,7 +552,7 @@ function App() {
                           <div className="w-2 h-2 bg-pink-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-pink-300 text-sm font-medium tracking-wider">02 • LIVE PREVIEW</span>
                         </div>
-                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left">
+                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left px-4 lg:px-0">
                           Real-Time
                           <span className="text-gradient block">Development</span>
                         </h3>
@@ -601,7 +601,7 @@ function App() {
                           <div className="w-2 h-2 bg-orange-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-orange-300 text-sm font-medium tracking-wider">03 • DEVOPS AUTOMATION</span>
                         </div>
-                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left">
+                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left px-4 lg:px-0 px-4 lg:px-0">
                           Pipeline
                           <span className="text-gradient block">Orchestration</span>
                         </h3>
@@ -829,7 +829,7 @@ function App() {
                           <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-green-300 text-sm font-medium tracking-wider">04 • AUTONOMOUS DEBUG</span>
                         </div>
-                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left">
+                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left px-4 lg:px-0">
                           Self-Healing
                           <span className="text-gradient block">Code</span>
                         </h3>
@@ -878,7 +878,7 @@ function App() {
                           <div className="w-2 h-2 bg-blue-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-blue-300 text-sm font-medium tracking-wider">05 • ARCHITECTURE</span>
                         </div>
-                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left">
+                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left px-4 lg:px-0">
                           Instant
                           <span className="text-gradient block">Scaffolding</span>
                         </h3>
@@ -959,7 +959,7 @@ function App() {
                           <div className="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-purple-300 text-sm font-medium tracking-wider">06 • VISUAL-TO-CODE</span>
                         </div>
-                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left">
+                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left px-4 lg:px-0">
                           Design
                           <span className="text-gradient block">Translation</span>
                         </h3>
