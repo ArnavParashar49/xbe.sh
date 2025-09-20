@@ -2,6 +2,8 @@
 
 This directory contains the downloadable files for xbe.sh v2.0.0.
 
+**⚠️ NOTE: All placeholder files are currently commented out to prevent download issues.**
+
 ## Directory Structure
 
 ```
@@ -26,9 +28,10 @@ releases/latest/
 
 ## How to Update
 
-1. Replace the placeholder files with your actual compiled binaries
-2. Maintain the same file names to ensure download links continue working
-3. Update version numbers in both file names and the website when releasing new versions
+1. **Currently Commented Out**: All placeholder files are commented out to prevent download issues
+2. **To Activate**: Replace the commented placeholder files with your actual compiled binaries
+3. **Maintain File Names**: Keep the same file names to ensure download links continue working
+4. **Update Versions**: Update version numbers in both file names and the website when releasing new versions
 
 ## Download URLs
 

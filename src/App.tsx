@@ -125,9 +125,9 @@ function App() {
               <img 
                 src="/logo-dark-styled.png" 
                 alt="xbe.sh logo" 
-                className="h-8 w-auto object-contain"
+                className="h-6 sm:h-8 w-auto object-contain"
               />
-              <span className="text-xl font-bold text-white font-cal">xbe.sh</span>
+              <span className="text-responsive-lg font-bold text-white font-cal">xbe.sh</span>
             </button>
             
             {/* Navigation */}
@@ -198,7 +198,7 @@ function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
                       viewport={{ once: true }}
-                      className="text-responsive-7xl font-bold text-white mb-8 leading-tight font-cal"
+                      className="text-responsive-5xl font-bold text-white mb-6 leading-tight font-cal px-2"
                     >
                       xbe.sh is the revolutionary
                       <span className="text-gradient block">AGENTIC IDE</span>
@@ -224,7 +224,7 @@ function App() {
             {/* Primary Action Button */}
             <motion.button 
               onClick={() => window.location.href = '/countdown'}
-              className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-medium px-8 py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl flex items-center space-x-3 min-w-[200px] justify-center"
+              className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-medium px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl flex items-center space-x-2 sm:space-x-3 min-w-[180px] sm:min-w-[200px] justify-center text-responsive-sm"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -235,7 +235,7 @@ function App() {
             {/* Secondary Action Button */}
             <motion.a 
               href="/downloads"
-              className="bg-black/40 backdrop-blur-md border border-gray-600/50 hover:bg-black/60 text-white font-medium px-8 py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl min-w-[160px] inline-block text-center"
+              className="bg-black/40 backdrop-blur-md border border-gray-600/50 hover:bg-black/60 text-white font-medium px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl min-w-[140px] sm:min-w-[160px] inline-block text-center text-responsive-sm"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -327,14 +327,14 @@ function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 1.2, ease: [0.25, 0.25, 0, 1] }}
                       viewport={{ once: true, margin: "-100px" }}
-                      className="grid lg:grid-cols-2 gap-16 items-center"
+                      className="grid lg:grid-cols-2 gap-16 items-center text-center lg:text-left"
                     >
                       <motion.div 
                         initial={{ opacity: 0, x: -40 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.25, 0, 1] }}
                         viewport={{ once: true }}
-                        className="space-y-8"
+                        className="space-y-8 text-center lg:text-left"
                       >
                         <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-500/20 to-purple-600/20 border border-purple-400/30 rounded-full backdrop-blur-sm">
                           <div className="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse"></div>
@@ -348,7 +348,7 @@ function App() {
                           Our AI agent transcends simple code completion. It understands context, architects solutions, 
                           and executes complex development workflows autonomously—transforming ideas into production-ready code.
                         </p>
-                        <div className="grid grid-cols-1 gap-4">
+                        <div className="grid grid-cols-1 gap-4 text-center lg:text-left">
                           {[
                             "Deep contextual understanding",
                             "Multi-step task orchestration", 
@@ -457,7 +457,7 @@ function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 1.2, ease: [0.25, 0.25, 0, 1] }}
                       viewport={{ once: true, margin: "-100px" }}
-                      className="grid lg:grid-cols-2 gap-16 items-center"
+                      className="grid lg:grid-cols-2 gap-16 items-center text-center lg:text-left"
                     >
                       <motion.div 
                         initial={{ opacity: 0, x: 40, scale: 0.95 }}
@@ -560,7 +560,7 @@ function App() {
                           Experience instantaneous feedback with revolutionary preview technology. Lightning-fast HMR for web, 
                           embedded emulators for mobile—see your changes come to life as you code.
                         </p>
-                        <div className="grid grid-cols-1 gap-4">
+                        <div className="grid grid-cols-1 gap-4 text-center lg:text-left">
                           {[
                             "Instant Hot Module Replacement",
                             "Embedded mobile emulators", 
@@ -588,14 +588,14 @@ function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 1.2, ease: [0.25, 0.25, 0, 1] }}
                       viewport={{ once: true, margin: "-100px" }}
-                      className="grid lg:grid-cols-2 gap-16 items-center"
+                      className="grid lg:grid-cols-2 gap-16 items-center text-center lg:text-left"
                     >
                       <motion.div 
                         initial={{ opacity: 0, x: -40 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.25, 0, 1] }}
                         viewport={{ once: true }}
-                        className="space-y-8"
+                        className="space-y-8 text-center lg:text-left"
                       >
                         <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-500/20 to-amber-500/20 border border-orange-400/30 rounded-full backdrop-blur-sm">
                           <div className="w-2 h-2 bg-orange-400 rounded-full mr-3 animate-pulse"></div>
@@ -609,7 +609,7 @@ function App() {
                           Design, build, and manage CI/CD pipelines with visual simplicity. Our intelligent pipeline builder 
                           creates complex workflows while our agent optimizes infrastructure and deployment strategies.
                         </p>
-                        <div className="grid grid-cols-1 gap-4">
+                        <div className="grid grid-cols-1 gap-4 text-center lg:text-left">
                           {[
                             "Visual pipeline builder",
                             "Multi-cloud deployment", 
@@ -725,7 +725,7 @@ function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 1.2, ease: [0.25, 0.25, 0, 1] }}
                       viewport={{ once: true, margin: "-100px" }}
-                      className="grid lg:grid-cols-2 gap-16 items-center"
+                      className="grid lg:grid-cols-2 gap-16 items-center text-center lg:text-left"
                     >
                       <motion.div 
                         initial={{ opacity: 0, x: 40, scale: 0.95 }}
@@ -837,7 +837,7 @@ function App() {
                           Eliminate manual debugging forever. Our AI continuously monitors your codebase, detects issues 
                           before they impact users, and automatically implements fixes—turning red tests green instantly.
                         </p>
-                        <div className="grid grid-cols-1 gap-4">
+                        <div className="grid grid-cols-1 gap-4 text-center lg:text-left">
                           {[
                             "Proactive error detection",
                             "Automatic fix suggestions", 
@@ -865,14 +865,14 @@ function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 1.2, ease: [0.25, 0.25, 0, 1] }}
                       viewport={{ once: true, margin: "-100px" }}
-                      className="grid lg:grid-cols-2 gap-16 items-center"
+                      className="grid lg:grid-cols-2 gap-16 items-center text-center lg:text-left"
                     >
                       <motion.div 
                         initial={{ opacity: 0, x: -40 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.25, 0, 1] }}
                         viewport={{ once: true }}
-                        className="space-y-8"
+                        className="space-y-8 text-center lg:text-left"
                       >
                         <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-400/30 rounded-full backdrop-blur-sm">
                           <div className="w-2 h-2 bg-blue-400 rounded-full mr-3 animate-pulse"></div>
@@ -886,7 +886,7 @@ function App() {
                           Transform ideas into complete application architectures instantly. Describe your vision and watch 
                           as xbe.sh generates the entire project structure with best practices and proper organization.
                         </p>
-                        <div className="grid grid-cols-1 gap-4">
+                        <div className="grid grid-cols-1 gap-4 text-center lg:text-left">
                           {["Instant project generation", "Best practice architecture", "Full-stack scaffolding"].map((feature, index) => (
                             <motion.div key={index} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }} viewport={{ once: true }} className="flex items-center group">
                               <div className="w-1.5 h-1.5 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full mr-4 group-hover:scale-125 transition-transform"></div>
@@ -924,7 +924,7 @@ function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 1.2, ease: [0.25, 0.25, 0, 1] }}
                       viewport={{ once: true, margin: "-100px" }}
-                      className="grid lg:grid-cols-2 gap-16 items-center"
+                      className="grid lg:grid-cols-2 gap-16 items-center text-center lg:text-left"
                     >
                       <motion.div initial={{ opacity: 0, x: 40, scale: 0.95 }} whileInView={{ opacity: 1, x: 0, scale: 1 }} transition={{ duration: 1.2, delay: 0.2, ease: [0.25, 0.25, 0, 1] }} viewport={{ once: true }} className="relative group lg:order-1">
                         <div className="relative">
@@ -967,7 +967,7 @@ function App() {
                           Bridge design and development seamlessly. Import Figma designs, sketches, or wireframes and watch 
                           as xbe.sh generates pixel-perfect, production-ready components with responsive behavior.
                         </p>
-                        <div className="grid grid-cols-1 gap-4">
+                        <div className="grid grid-cols-1 gap-4 text-center lg:text-left">
                           {["Figma-to-code conversion", "Pixel-perfect components", "Responsive & interactive"].map((feature, index) => (
                             <motion.div key={index} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }} viewport={{ once: true }} className="flex items-center group">
                               <div className="w-1.5 h-1.5 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mr-4 group-hover:scale-125 transition-transform"></div>
@@ -1772,9 +1772,9 @@ function App() {
           </footer>
 
           {/* Built with xBe.sh Badge */}
-          <div className="fixed bottom-4 right-4 z-50">
-            <div className="bg-black/80 backdrop-blur-sm border border-white/10 rounded-full px-3 py-1.5 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
-              <div className="flex items-center gap-1.5 text-xs">
+          <div className="fixed bottom-3 sm:bottom-4 right-3 sm:right-4 z-50">
+            <div className="bg-black/80 backdrop-blur-sm border border-white/10 rounded-full px-2.5 sm:px-3 py-1 sm:py-1.5 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+              <div className="flex items-center gap-1 sm:gap-1.5 text-responsive-xs">
                 <span className="text-gray-300">Built with</span>
                 <span className="text-white font-semibold font-cal">xbe.sh</span>
                 <span className="text-red-400">❤️</span>
