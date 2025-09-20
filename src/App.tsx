@@ -198,7 +198,7 @@ function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
                       viewport={{ once: true }}
-                      className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight font-cal"
+                      className="text-responsive-7xl font-bold text-white mb-8 leading-tight font-cal"
                     >
                       xbe.sh is the revolutionary
                       <span className="text-gradient block">AGENTIC IDE</span>
@@ -209,7 +209,7 @@ function App() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.8 }}
-            className="text-xl sm:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed"
+            className="text-responsive-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed"
           >
             An AI partner that autonomously codes, tests, and deploys your app on any stack.
           </motion.p>

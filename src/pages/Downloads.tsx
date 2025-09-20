@@ -95,30 +95,30 @@ function Downloads() {
                   recommended: userOS === 'Windows',
                   version: 'v2.0.0',
                   
-                  formats: [
-                    { name: 'Windows x64 (.exe)', downloadUrl: '/countdown' },
-                    { name: 'Windows Arm64 (.exe)', downloadUrl: '/countdown' }
-                  ]
+                formats: [
+                  { name: 'Windows x64 (.exe)', downloadUrl: '/releases/latest/windows/xbe.sh-v2.0.0-x64.exe' },
+                  { name: 'Windows Arm64 (.exe)', downloadUrl: '/releases/latest/windows/xbe.sh-v2.0.0-arm64.exe' }
+                ]
                 },
                 {
                   os: 'macOS',
                   recommended: userOS === 'macOS',
                   version: 'v2.0.0',
                   
-                  formats: [
-                    { name: 'macOS Universal (.dmg)',  downloadUrl: '/countdown' },
-                    { name: 'macOS Apple Silicon (.dmg)',  downloadUrl: '/countdown' }
-                  ]
+                formats: [
+                  { name: 'macOS Universal (.dmg)',  downloadUrl: '/releases/latest/macos/xbe.sh-v2.0.0-universal.dmg' },
+                  { name: 'macOS Apple Silicon (.dmg)',  downloadUrl: '/releases/latest/macos/xbe.sh-v2.0.0-apple-silicon.dmg' }
+                ]
                 },
                 {
                   os: 'Linux',
                   recommended: userOS === 'Linux',
                   version: 'v2.0.0',
                 
-                  formats: [
-                    { name: 'Linux (.deb)',  downloadUrl: '/countdown' },
-                    { name: 'Linux (.rpm)', downloadUrl: '/countdown' }
-                  ]
+                formats: [
+                  { name: 'Linux (.deb)',  downloadUrl: '/releases/latest/linux/xbe.sh-v2.0.0.deb' },
+                  { name: 'Linux (.rpm)', downloadUrl: '/releases/latest/linux/xbe.sh-v2.0.0.rpm' }
+                ]
                 }
               ];
 
@@ -173,7 +173,13 @@ function Downloads() {
                             key={formatIndex}
                             onClick={() => {
                               if (format.downloadUrl) {
-                                window.location.href = format.downloadUrl;
+                                // Create a temporary link element to trigger download
+                                const link = document.createElement('a');
+                                link.href = format.downloadUrl;
+                                link.download = format.downloadUrl.split('/').pop() || 'download';
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
                               }
                             }}
                             className="w-full bg-gradient-to-r from-violet-600/20 to-purple-600/20 hover:from-violet-600/30 hover:to-purple-600/30 border border-violet-500/30 text-white py-3 px-4 rounded-xl transition-all duration-200 hover:scale-105 text-sm text-center"
@@ -187,7 +193,13 @@ function Downloads() {
                       <button 
                         onClick={() => {
                           if (platform.formats[0]?.downloadUrl) {
-                            window.location.href = platform.formats[0].downloadUrl;
+                            // Create a temporary link element to trigger download
+                            const link = document.createElement('a');
+                            link.href = platform.formats[0].downloadUrl;
+                            link.download = platform.formats[0].downloadUrl.split('/').pop() || 'download';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
                           }
                         }}
                         className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
