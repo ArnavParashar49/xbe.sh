@@ -198,7 +198,7 @@ function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
                       viewport={{ once: true }}
-                      className="text-responsive-5xl font-bold text-white mb-6 leading-tight font-cal px-2"
+                      className="text-responsive-8xl font-bold text-white mb-6 leading-tight font-cal px-2 text-center"
                     >
                       xbe.sh is the revolutionary
                       <span className="text-gradient block">AGENTIC IDE</span>
@@ -209,7 +209,7 @@ function App() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.8 }}
-            className="text-responsive-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed"
+            className="text-responsive-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed text-center"
           >
             An AI partner that autonomously codes, tests, and deploys your app on any stack.
           </motion.p>
@@ -301,7 +301,7 @@ function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
                       viewport={{ once: true }}
-                      className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight font-cal"
+                      className="text-responsive-6xl font-bold text-white mb-8 leading-tight font-cal text-center"
                     >
                       The Future of
                       <span className="text-gradient block">Development</span>
@@ -311,7 +311,7 @@ function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                       viewport={{ once: true }}
-                      className="text-2xl text-gray-400 max-w-4xl mx-auto leading-relaxed font-light"
+                      className="text-responsive-xl text-gray-400 max-w-4xl mx-auto leading-relaxed font-light text-center"
                     >
                       Six revolutionary capabilities that redefine what's possible in software development. 
                       Experience the next generation of intelligent, autonomous development tools.
@@ -340,7 +340,7 @@ function App() {
                           <div className="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-purple-300 text-sm font-medium tracking-wider">01 • AGENTIC CORE</span>
                         </div>
-                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight font-cal">
+                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left">
                           Intelligent
                           <span className="text-gradient block">Automation</span>
                         </h3>
@@ -552,7 +552,7 @@ function App() {
                           <div className="w-2 h-2 bg-pink-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-pink-300 text-sm font-medium tracking-wider">02 • LIVE PREVIEW</span>
                         </div>
-                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight font-cal">
+                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left">
                           Real-Time
                           <span className="text-gradient block">Development</span>
                         </h3>
@@ -601,7 +601,7 @@ function App() {
                           <div className="w-2 h-2 bg-orange-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-orange-300 text-sm font-medium tracking-wider">03 • DEVOPS AUTOMATION</span>
                         </div>
-                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight font-cal">
+                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left">
                           Pipeline
                           <span className="text-gradient block">Orchestration</span>
                         </h3>
@@ -829,7 +829,7 @@ function App() {
                           <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-green-300 text-sm font-medium tracking-wider">04 • AUTONOMOUS DEBUG</span>
                         </div>
-                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight font-cal">
+                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left">
                           Self-Healing
                           <span className="text-gradient block">Code</span>
                         </h3>
@@ -878,7 +878,7 @@ function App() {
                           <div className="w-2 h-2 bg-blue-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-blue-300 text-sm font-medium tracking-wider">05 • ARCHITECTURE</span>
                         </div>
-                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight font-cal">
+                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left">
                           Instant
                           <span className="text-gradient block">Scaffolding</span>
                         </h3>
@@ -959,7 +959,7 @@ function App() {
                           <div className="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse"></div>
                           <span className="text-purple-300 text-sm font-medium tracking-wider">06 • VISUAL-TO-CODE</span>
                         </div>
-                        <h3 className="text-5xl lg:text-6xl font-bold text-white leading-tight font-cal">
+                        <h3 className="text-responsive-4xl font-bold text-white leading-tight font-cal text-center lg:text-left">
                           Design
                           <span className="text-gradient block">Translation</span>
                         </h3>
@@ -999,7 +999,7 @@ function App() {
                       <div className="w-2 h-2 bg-violet-400 rounded-full mr-3 animate-pulse"></div>
                       <span className="text-violet-300 text-sm font-medium tracking-wider">TRUSTED BY DEVELOPERS</span>
       </div>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-cal">
+                    <h2 className="text-responsive-5xl font-bold text-white mb-6 font-cal text-center">
                       Join the
                       <span className="text-gradient block">Revolution</span>
                     </h2>
@@ -1201,7 +1201,7 @@ function App() {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                   >
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-cal">
+                    <h2 className="text-responsive-5xl font-bold text-white mb-6 font-cal text-center">
                       <span className="text-gradient block">Pricing</span>
                     </h2>
                     <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
@@ -1384,7 +1384,7 @@ function App() {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                   >
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-cal">
+                    <h2 className="text-responsive-5xl font-bold text-white mb-6 font-cal text-center">
                       Frequently Asked
                       <span className="text-gradient block">Questions</span>
                     </h2>
@@ -1487,7 +1487,7 @@ function App() {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                   >
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-cal">
+                    <h2 className="text-responsive-5xl font-bold text-white mb-6 font-cal text-center">
                       Get Started in
                       <span className="text-gradient block">3 Simple Steps</span>
                     </h2>
@@ -1609,7 +1609,7 @@ function App() {
                     transition={{ duration: 1 }}
                     viewport={{ once: true }}
                   >
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight font-cal">
+                    <h2 className="text-responsive-5xl font-bold text-white mb-6 leading-tight font-cal text-center">
                       Ready to Transform Your
                       <span className="text-gradient block">Development Workflow?</span>
                     </h2>
