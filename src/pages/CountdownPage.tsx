@@ -10,13 +10,11 @@ function CountdownPage() {
     <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center px-6">
       {/* Logo */}
       <div className="flex items-center space-x-3 mb-8">
-        <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-violet-600 rounded-xl flex items-center justify-center">
-          <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2L2 7L12 12L22 7L12 2Z" />
-            <path d="M2 17L12 22L22 17" />
-            <path d="M2 12L12 17L22 12" />
-          </svg>
-        </div>
+        <img
+          src="/logo-dark-styled.png"
+          alt="xbe.sh logo"
+          className="h-10 w-auto object-contain"
+        />
         <span className="text-xl font-bold text-white font-cal">xbe.sh</span>
       </div>
 
@@ -76,12 +74,12 @@ function CountdownPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7 }}
       >
-        <a
-          href="/downloads"
-          className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl font-cal"
-        >
-          ← Back to Downloads
-        </a>
+         <a
+           href="/downloads"
+           className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
+         >
+           ← Back to Downloads
+         </a>
       </motion.div>
 
       {/* Built with badge */}
